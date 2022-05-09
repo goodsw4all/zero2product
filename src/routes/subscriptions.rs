@@ -3,7 +3,7 @@ use chrono::Utc;
 use sqlx::PgPool;
 use uuid::Uuid;
 
-use tracing::Instrument;
+// use tracing::Instrument;
 
 #[derive(serde::Deserialize)]
 pub struct FormData {
@@ -36,7 +36,7 @@ pub async fn subscribe(
     match insert_subsriber(&pool, &form).await
     {
         Ok(_) => HttpResponse::Ok().finish(),
-        Err(e) => {
+        Err(_) => {
             HttpResponse::InternalServerError().finish()
         }
     }
@@ -64,6 +64,7 @@ pub async fn insert_subsriber(pool: &PgPool, form: &FormData) -> Result<(), sqlx
     .map_err(|e| {
         tracing::error!("Failed to execute query: {:?}", e);
         e
-    })?;    
+    })?;
+
     Ok(())
 }
