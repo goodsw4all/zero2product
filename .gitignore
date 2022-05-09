@@ -13,3 +13,4 @@ __pycache__
 .vscode/
 *.iml
 *.swp
+mount-ram.sh
